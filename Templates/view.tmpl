@@ -1,0 +1,33 @@
+<HTML>
+    <HEAD>
+        <!--<link rel="stylesheet" href="http://localhost/demo-projekt/assets/css/standard.css">-->
+        <TITLE>Fruity Data</TITLE>
+    </HEAD>
+    <BODY>
+
+        <H1>Fruity Data</H1>
+
+        <p>Eine Seite zum Testen von HTML::Template mit CSS.</p>
+
+        <TABLE BORDER=0 >
+
+            <thead bgcolor="orange"><B>The Data</B>
+                <TD><B>Fruit Name</B></TD>
+                <TD><B>Color</B></TD>
+                <TD><B>Shape</B></TD>
+            </thead>
+
+            <TR>
+                <TD>Alpha<TMPL_VAR NAME="name2"></TD>
+                <TD>Beta<TMPL_VAR NAME="color2"></TD>
+                <TD>Gamma<TMPL_VAR NAME="shape2"></TD>
+            </TR>
+
+            <TR>
+                <TD>Delta<TMPL_VAR NAME="name"></TD>
+                <TD>Epsilon<TMPL_VAR NAME="color"></TD>
+                <TD>Phi<TMPL_VAR NAME="shape"></TD>
+            </TR>
+
+        </TABLE>
+
