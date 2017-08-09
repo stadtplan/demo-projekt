@@ -8,17 +8,15 @@
 
     <!-- Header -->
         <header class="container_header">
-          <h1 class="headline">DEMÖ Projäkt</h1>
-          <h3 class="subheadline">Testview<TMPL_VAR NAME="View"></h3>
-            <div class="container_menu">
-                <!--<a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-darkgrey"-->
-                <!--href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>-->
-                <a href="/demo-projekt/index.pl" class="button_menu">Home</a>
-                <a href="#" class="button_menu">Server</a>
-                <a href="/demo-projekt/index.pl/storage/showall" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Storage</a>
-            </div>
+          <h1 class="headline">Demo-Projekt</h1>
+          <h3 class="subheadline">Home</h3>
         </header>
-        <dev>
-            <h1>Hallo Nutzer</h1>
-            <a> Wähle dein Begehr!</a>
-        </dev>
+    <!--Menu-->
+        <TMPL_INCLUDE NAME="menu.tmpl">
+    <!--Content-->
+        <div class="container_text">
+            <h1 class="headline">Hallo Nutzer</h1>
+            <h3 class="subheadline">Wähle dein Begehr!</h3>
+        </div>
+    </BODY>
+</HTML>

@@ -20,7 +20,9 @@
                 <tr class="grey">
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Capacity</th>
+                    <th>Operating System</th>
+                    <th>Storage</th>
+                    <th>md5</th>
                     <th>created</th>
                     <th>modified</th>
                 </tr>
@@ -30,9 +32,11 @@
             <tr>
                 <td><TMPL_VAR NAME="id"></td>
                 <td><TMPL_VAR NAME="name"></td>
-                <td><TMPL_VAR NAME="capacity"></td>
+                <td><TMPL_VAR NAME="op_system"></td>
+                <td><TMPL_VAR NAME="storage"></td>
+                <td><TMPL_VAR NAME="md5"></td>
                 <td><TMPL_VAR NAME="created"></td>
                 <td><TMPL_VAR NAME="modified"></td>
             </tr>
-        </TMPL_LOOP>
+
             </table>
