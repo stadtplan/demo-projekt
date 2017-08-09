@@ -6,66 +6,70 @@ use warnings FATAL => 'all';
 
 sub new {
    my ($class) = shift @_;
-   my ($name, $capacity, $PID, $CreationTime, $UpdateTime, $Deleted) = @_;
+   my ($name, $capacity, $id, $creationtime, $updatetime, $deleted) = @_;
 
-   return bless {
-        "name"       => $name,
-        "capacity"   => $capacity,
-        "PID"        => $PID,
-        "CreationTime"=> $CreationTime,
-        "UpdateTime" => $UpdateTime,
-        "Deleted"   => $Deleted,
+   my $self = bless {
+         "id"          => $id,
+         "name"        => $name,
+         "capacity"    => $capacity,
+         "creationtime"=> $creationtime,
+         "updatetime"  => $updatetime,
+         "deleted"     => $deleted,
     }, $class;
+   return $self;
 
 }
 
-
-sub get_name {
-   return $_[0]->{name};
+sub get_ID {
+   my $self = @_;
+   return $self->{id};
 }
-sub set_name {
+
+sub set_ID {
    my ($self , $new_value) = @_;
-   $$self{name} = $new_value;
+   $self->{id} = $new_value;
    return $self;
 }
 
+sub get_name {
+   my $self = @_;
+   return $self->{name};
+}
+
+sub set_name {
+   my ($self , $new_value) = @_;
+   $self->{name} = $new_value;
+   return $self;
+}
 
 sub get_capacity {
-   return $_[0]->{capacity};
+   my $self = @_;
+   return $self->{capacity};
 }
 sub set_capacity {
    my ($self , $new_value) = @_;
-   $$self{capacity} = $new_value;
+   $self->{capacity} = $new_value;
    return $self;
 }
 
-
-sub get_PID {
-   return $_[0]->{PID};
+sub get_creationtime {
+   my $self = @_;
+   return $self->{creationtime};
 }
-sub set_PID {
+
+sub get_updatetime {
+   my $self = @_;
+   return $self->{updatetime};
+}
+
+sub get_deleted {
+   my $self = @_;
+   return $self->{deleted};
+}
+
+sub set_deleted {
    my ($self , $new_value) = @_;
-   $$self{PID} = $new_value;
-   return $self;
-}
-
-
-sub get_CreationTime {
-   return $_[0]->{CreationTime};
-}
-
-
-sub get_UpdateTime {
-   return $_[0]->{UpdateTime};
-}
-
-
-sub get_Deleted {
-   return $_[0]->{Deleted};
-}
-sub set_Deleted {
-   my ($self , $new_value) = @_;
-   $$self{Deleted} = $new_value;
+   $self->{deleted} = $new_value;
    return $self;
 }
 1;

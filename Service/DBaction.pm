@@ -19,8 +19,7 @@ sub new {
 # Prepares and executes the query and sends it to the db
 
 sub execute {
-   my ($self) = shift @_;
-   my $query = shift @_;
+   my ($self, $query) = @_;
 
    my $dbh = $self->{dbh};
 
@@ -63,6 +62,13 @@ sub show_all {
       }
    return @rows;
 #   }
+}
+
+sub get_record {
+   my ($self, $uid) = @_;
+   my $query = "SELECT * FROM ".$self->{tablename}." WHERE id=".$uid.";";
+   $self->execute($query);
+
 }
 
 

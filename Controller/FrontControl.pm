@@ -157,6 +157,50 @@ sub server_showall {
 
 }
 
+sub storage_edit {
+   my ($self) = shift @_;
+   my ($tablename) = shift @_;
+
+   my $cgi = $self->{cgi};
+
+   my $dbh = $self->{dbh};
+   my $obj_DBaction = DBaction->new($dbh,$tablename);
+   my @ar_rows = $obj_DBaction->get_record($cgi->url_param('id'));
+
+   my $row (@ar_rows) {
+      my @fields = @$row;
+      my %content = (
+         'id'        => $fields[0],
+         'name'      => $fields[1],
+         'capacity'  => $fields[2],
+         'created'   => $fields[3],
+         'modified'  => $fields[4]
+      );
+      push(@loop, \%content);
+
+   # Create the Template-Object
+   my $template = HTML::Template->new(filename => 'Templates/storage.tmpl', );
+
+   # Sending the data to the Template
+   $template->param(data_loop => \@loop);
+
+   # print the template
+   print $cgi->header(-type => 'text/html', -charset => 'utf-8');
+   print $template->output;
+   print $cgi->end_html;
+
+}
+
+sub storage_edit {
+   my ($self) = @_;
+
+}
+
+sub server_edit {
+   my ($self) = @_;
+
+}
+
 sub storage_new {
    my ($self) = @_;
 
@@ -173,16 +217,6 @@ sub storage_delete {
 }
 
 sub server_delete {
-   my ($self) = @_;
-
-}
-
-sub storage_edit {
-   my ($self) = @_;
-
-}
-
-sub server_edit {
    my ($self) = @_;
 
 }
