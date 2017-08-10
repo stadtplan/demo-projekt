@@ -2,10 +2,13 @@ package FrontControl;
 use strict;
 use warnings FATAL => 'all';
 use HTML::Template;
-use Service::DBconnect;
-use Service::DBaction;
 use DBI;
 use DDP;
+use Service::DBconnect;
+use Service::DBaction;
+use Models::Storage;
+use Models::Server;
+
 
 # Konstruktor
 sub new {
@@ -80,7 +83,7 @@ sub storage_showall {
    my $obj_DBaction = DBaction->new($dbh,$tablename);
    my @ar_rows = $obj_DBaction->show_all();
 
-   # Fetch each row and push it into @loop. "ar" = ArrayReferenz
+   # Fetch each row and push it into @loop, if it is not deleted. "ar" = ArrayReferenz
    # @loop is an Array of Hashreferences with the fieldnames as keys of the hashes
    # that is needed by <TMPL_LOOP> of the Template
 
@@ -88,14 +91,16 @@ sub storage_showall {
 
    foreach my $row (@ar_rows) {
       my @fields = @$row;
-      my %content = (
-         'id'        => $fields[0],
-         'name'      => $fields[1],
-         'capacity'  => $fields[2],
-         'created'   => $fields[3],
-         'modified'  => $fields[4]
-      );
-      push(@loop, \%content);
+      if (!$fields[5]) {
+         my %content = (
+            'id'       => $fields[0] ,
+            'name'     => $fields[1] ,
+            'capacity' => $fields[2] ,
+            'created'  => $fields[3] ,
+            'modified' => $fields[4]
+         );
+         push(@loop , \%content);
+      }
    }
 
    # Create the Template-Object
@@ -159,40 +164,32 @@ sub server_showall {
 
 sub storage_edit {
    my ($self) = shift @_;
-   my ($tablename) = shift @_;
+   my ($tablename) = 'storage';
 
    my $cgi = $self->{cgi};
-
    my $dbh = $self->{dbh};
-   my $obj_DBaction = DBaction->new($dbh,$tablename);
-   my @ar_rows = $obj_DBaction->get_record($cgi->url_param('id'));
 
-   my $row (@ar_rows) {
-      my @fields = @$row;
-      my %content = (
-         'id'        => $fields[0],
-         'name'      => $fields[1],
-         'capacity'  => $fields[2],
-         'created'   => $fields[3],
-         'modified'  => $fields[4]
-      );
-      push(@loop, \%content);
+   my $obj_DBaction = DBaction->new( $dbh , $tablename );
+   my $obj_record = $obj_DBaction->get_record_by_id($cgi->url_param('id'));
+
+   # Assemble the data for the template
+   my %content = (
+      'id'       => $obj_record->get_id(),
+      'name'     => $obj_record->get_name(),
+      'capacity' => $obj_record->get_capacity()
+   );
+   my @record = \%content;
 
    # Create the Template-Object
-   my $template = HTML::Template->new(filename => 'Templates/storage.tmpl', );
+   my $template = HTML::Template->new(filename => 'Templates/storage-edit.tmpl' ,);
 
    # Sending the data to the Template
-   $template->param(data_loop => \@loop);
+   $template->param(data_loop => \@record);
 
    # print the template
-   print $cgi->header(-type => 'text/html', -charset => 'utf-8');
+   print $cgi->header(-type => 'text/html' , -charset => 'utf-8');
    print $template->output;
    print $cgi->end_html;
-
-}
-
-sub storage_edit {
-   my ($self) = @_;
 
 }
 
@@ -213,8 +210,35 @@ sub server_new {
 
 sub storage_delete {
    my ($self) = @_;
+   my ($tablename) = 'storage';
+
+   my $cgi = $self->{cgi};
+   my $dbh = $self->{dbh};
+
+   my $obj_DBaction = DBaction->new( $dbh , $tablename );
+   $obj_DBaction->delete_record_by_id($cgi->param('id'));
+
+   # Assemble the data for the template
+   my %content = (
+      'id'       => '-',
+      'name'     => '-',
+      'capacity' => '-'
+   );
+   my @record = \%content;
+
+   # Create the Template-Object
+   my $template = HTML::Template->new(filename => 'Templates/storage-edit.tmpl' ,);
+
+   # Sending the data to the Template
+   $template->param(data_loop => \@record);
+
+   # print the template
+   print $cgi->header(-type => 'text/html' , -charset => 'utf-8');
+   print $template->output;
+   print $cgi->end_html;
 
 }
+
 
 sub server_delete {
    my ($self) = @_;

@@ -3,12 +3,14 @@ use strict;
 use warnings FATAL => 'all';
 use DBI;
 use Service::DBconnect;
+use Models::Storage;
+use Models::Server;
 
 
 # Konstruktor
 
 sub new {
-   my ($class,$dbh,$tablename) =  @_;
+   my ($class,$dbh,$tablename,$id) =  @_;
    my $self = bless {
          dbh       => $dbh,
          tablename => $tablename,
@@ -42,7 +44,7 @@ sub execute {
 sub show_all {
    my ($self) = shift @_;
 
-   my $query = "SELECT * FROM ".$self->{tablename}.";";
+   my $query = "SELECT * FROM ".$self->{tablename}." ORDER BY id ASC;";
    my $return = $self->execute($query);
 
 #   if ($return==0||$return==1) {
@@ -54,20 +56,28 @@ sub show_all {
       # This is goining to be decomposed and put in an array of arrayreferences for further use
 
       my @rows = ();
-
       while ( my @fields = $self->{sth}->fetchrow_array() ) {
          push(@rows, \@fields);
-
 
       }
    return @rows;
 #   }
 }
 
-sub get_record {
-   my ($self, $uid) = @_;
-   my $query = "SELECT * FROM ".$self->{tablename}." WHERE id=".$uid.";";
+# Fetch one record from the database and return it as the particular object
+
+sub get_record_by_id {
+   my ($self, $id) = @_;
+
+   my $query = "SELECT * FROM ".$self->{tablename}." WHERE id=".$id.";";
    $self->execute($query);
+
+   # the record is used to instanviate a Storage-Object. The first Character of the tablename is switched to uppercase
+   my @fields = $self->{sth}->fetchrow_array();
+   my $tablename = ucfirst($self->{tablename});
+   my $obj_record = $tablename->new(@fields);
+
+   return $obj_record;
 
 }
 
@@ -88,10 +98,13 @@ sub update_record {
 }
 
 
-# Removes a record from a table. Expects record-object
+# Sets the 'deleted'-Flag of a record to 'true'. Expects record-object
 
-sub delete_record {
-   my ($self) = @_;
+sub delete_record_by_id {
+   my ($self,$id) = @_;
+
+   my $query = "UPDATE ".$self->{tablename}." SET deleted = 't' WHERE id = ".$id.";";
+   $self->execute($query);
    
 }
 

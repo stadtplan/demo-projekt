@@ -8,7 +8,7 @@
     background-color: #008CBA;
     align: center;
     vertical-align: middle;
-    width: 700px;
+    width: 900px;
 }
 
 .headline {
@@ -41,7 +41,7 @@
     background-color: #008CBA;
     text-align: center;
     font-size: 18px !important;
-    width: 700px;
+    width: 900px;
     overflow: hidden;
     box-sizing: inherit;
     line-height: 1.5;
@@ -81,7 +81,7 @@
 .container_text {
     display: block;
     margin: 0px;
-    width: 700px;
+    width: 900px;
     align: center;
     vertical-align: middle;
 }
@@ -90,7 +90,7 @@
     border: 1px solid #000000;
     border-collapse: collapse;
     border-spacing: 0;
-    width: 50%;
+    width: 900px;
     display: table;
     box-sizing: inherit;
     color: #000 !important;
@@ -98,7 +98,7 @@
     font-size: 15px;
     line-height: 1.5;
     margin: 24px;
-    box-sizing: 66%;
+    box-sizing: 90%;
     overflow: hidden;
     table-align: center;
 }
@@ -109,6 +109,7 @@ th {
 
 td {
     border: 1px solid #000000
+    float: center
 }
 
 .grey {
