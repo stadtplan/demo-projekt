@@ -49,10 +49,34 @@
     display: block;
 }
 
-.button {
+.button_menu {
     white-space: normal;
     float: center;
     width: 100px;
+    border: none;
+    outline: none;
+    display: inline-block;
+    color: #000;
+    background-color: #008CBA;
+    padding: 12px 24px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: 10%;
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.button_submit {
+    white-space: normal;
+    float: center;
+    width: 200px;
     border: none;
     outline: none;
     display: inline-block;
@@ -83,6 +107,7 @@
     margin: 0px;
     width: 900px;
     align: center;
+    float: center;
     vertical-align: middle;
 }
 
@@ -110,6 +135,40 @@ th {
 td {
     border: 1px solid #000000
     float: center
+}
+
+.container_form {
+    padding: 16px;
+    content: "";
+    display: table;
+    clear: both;
+    font-family: "Montserrat", sans-serif;
+    color: #fff;
+    background-color: #008CBA;
+    text-align: center;
+    font-size: 18px !important;
+    width: 900px;
+    overflow: hidden;
+    /*box-sizing: inherit;*/
+    line-height: 1.5;
+    position: bottom;
+    display: block;
+}
+
+.input_text {
+    padding: 12px 20px;
+    box-sizing: border-box;
+}
+
+
+.input_submit {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
 }
 
 .grey {

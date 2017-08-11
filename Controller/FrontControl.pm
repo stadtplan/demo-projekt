@@ -104,7 +104,7 @@ sub storage_showall {
    }
 
    # Create the Template-Object
-   my $template = HTML::Template->new(filename => 'Templates/storage.tmpl', );
+   my $template = HTML::Template->new(filename => 'Templates/storages.tmpl', );
 
    # Sending the data to the Template
    $template->param(data_loop => \@loop);
@@ -150,7 +150,7 @@ sub server_showall {
    }
 
    # Create the Template-Object
-   my $template = HTML::Template->new(filename => 'Templates/storage.tmpl', );
+   my $template = HTML::Template->new(filename => 'Templates/servers.tmpl', );
 
    # Sending the data to the Template
    $template->param(data_loop => \@loop);
@@ -169,8 +169,30 @@ sub storage_edit {
    my $cgi = $self->{cgi};
    my $dbh = $self->{dbh};
 
+   #my $id = $cgi->url_param('id');
+
    my $obj_DBaction = DBaction->new( $dbh , $tablename );
-   my $obj_record = $obj_DBaction->get_record_by_id($cgi->url_param('id'));
+
+   if ($cgi->request_method eq 'POST') {
+      my $new_name = $cgi->param('name');
+      my $capacity = $cgi->param('capacity');
+      my $id = $cgi->param('id');
+
+      $obj_DBaction->update_record($id, $new_name, $capacity);
+   }
+
+   my $obj_record = $obj_DBaction->get_record('id',$cgi->url_param('id'));
+
+
+#   # Compare the sent data with the DB-Data. If it differs, change it.
+#   if ($capacity != $obj_record->get_capacity()) {
+#      $obj_record->set_capacity($capacity);
+#   }
+#
+#   if (($cgi->param('name')) ne ($obj_record->get_name())) {
+#      $obj_record->set_name($cgi->param('name'));
+#   }
+
 
    # Assemble the data for the template
    my %content = (
@@ -200,6 +222,39 @@ sub server_edit {
 
 sub storage_new {
    my ($self) = @_;
+   my ($tablename) = 'storage';
+
+   my $cgi = $self->{cgi};
+   my $dbh = $self->{dbh};
+
+   # $cgi->param() provides a list, therefore youhave to turn it into scalar context like follws,
+   # or just use "" like in line 214
+
+   #my $new_name = ($cgi->param('new_name'));
+   #my $size = ${$cgi->param('size')};
+
+   my $obj_DBaction = DBaction->new( $dbh , $tablename );
+   my $obj_new_record = $obj_DBaction->insert_record("FTL000000666",000000666);
+
+
+   # Assemble the data for the template
+   my %content = (
+      'id'       => $obj_new_record->get_id(),
+      'name'     => $obj_new_record->get_name(),
+      'capacity' => $obj_new_record->get_capacity()
+   );
+   my @record = \%content;
+
+   # Create the Template-Object
+   my $template = HTML::Template->new(filename => 'Templates/storage-edit.tmpl' ,);
+
+   # Sending the data to the Template
+   $template->param(data_loop => \@record);
+
+   # print the template
+   print $cgi->header(-type => 'text/html' , -charset => 'utf-8');
+   print $template->output;
+   print $cgi->end_html;
 
 }
 

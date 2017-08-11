@@ -29,10 +29,10 @@
             <TMPL_LOOP NAME="data_loop">
             <tr>
                     <td><TMPL_VAR NAME="id"></a></td>
-                <form action="http://localhost/demo-projekt/index.pl/storage/edit" id="edit" method="post">
+                <form action="http://localhost/demo-projekt/index.pl/storage/edit?id=<TMPL_VAR NAME="id">" method="post">
                     <input type="hidden" name="id" value=<TMPL_VAR NAME="id">>
-                    <td><input type="text" id="name" size="12" maxlength="12" value=<TMPL_VAR NAME="name">></td>
-                    <td><input type="number" id="name" size="9" maxlength="9" value=<TMPL_VAR NAME="capacity">> MB</td>
+                    <td><input type="text" name="name" size="12" maxlength="12" value=<TMPL_VAR NAME="name">></td>
+                    <td><input type="number" name="capacity" size="9" maxlength="9" value=<TMPL_VAR NAME="capacity">> MB</td>
                     <td><input type="submit" value="&#x270D EDIT"></td>
                 </form>
 

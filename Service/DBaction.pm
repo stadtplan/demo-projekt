@@ -66,13 +66,15 @@ sub show_all {
 
 # Fetch one record from the database and return it as the particular object
 
-sub get_record_by_id {
-   my ($self, $id) = @_;
+sub get_record {
+   my ($self, $column, $value) = @_;
 
-   my $query = "SELECT * FROM ".$self->{tablename}." WHERE id=".$id.";";
+   #my $value = $$ref_value;
+
+   my $query = "SELECT * FROM ".$self->{tablename}." WHERE ".$column."=".$value.";";
    $self->execute($query);
 
-   # the record is used to instanviate a Storage-Object. The first Character of the tablename is switched to uppercase
+   # the record is used to instanciate a Storage-Object. The first Character of the tablename is switched to uppercase
    my @fields = $self->{sth}->fetchrow_array();
    my $tablename = ucfirst($self->{tablename});
    my $obj_record = $tablename->new(@fields);
@@ -82,10 +84,16 @@ sub get_record_by_id {
 }
 
 
-# Adds a record to a table. Expects record-object.
+# Adds a record to a table. Executes the INSERT-Query and returns a record-object of the new record
+# by calling get_record_by_name().
 
 sub insert_record {
-   my ($self) = @_;
+   my ($self, $new_name, $size) = @_;
+
+   my $query = "INSERT INTO ".$self->{tablename}." (name, capacity) VALUES ('".$new_name."' , ".$size.");";
+   $self->execute($query);
+
+   return 1;
 
 }
 
@@ -93,7 +101,12 @@ sub insert_record {
 # Changes a record in table. Expects record-object.
 
 sub update_record {
-   my ($self) = @_;
+   my ($self, $id, $new_name, $size) = @_;
+
+   my $query = "UPDATE ".$self->{tablename}." SET name = '".$new_name."' , capacity = ".$size." WHERE id = ".$id.";";
+   $self->execute($query);
+
+   return 1;
    
 }
 
