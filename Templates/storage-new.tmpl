@@ -1,0 +1,29 @@
+<HTML xmlns="http://www.w3.org/1999/html">
+    <HEAD>
+        <TITLE>Demö-Projäkt</TITLE>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://localhost/demo-projekt/assets/css/standard.css">
+    </HEAD>
+    <BODY>
+
+    <!-- Header -->
+        <header class="container_header">
+          <h1 class="headline">Demo-Projekt</h1>
+          <h3 class="subheadline">Home</h3>
+        </header>
+    <!--Menu-->
+        <TMPL_INCLUDE NAME="menu.tmpl">
+    <!--Content-->
+
+        <div class="container_form">
+            <form action="http://localhost/demo-projekt/index.pl/storage/new" id="new-storage" method="post">
+                <h3 class="subheadline">New Storage Name</h3>
+                <input type="text" size="15" maxlength="12" id="new_name" value="ABC123456789" required="">
+
+                <h3 class="subheadline">Size in MB</h3>
+                <input type="number" size="9" maxlength="9" id="size" value="100000" step="1000"></br></br>
+
+                <input class="button_submit" type="submit" value="Create Storage">
+
+            </form>
+        </div>

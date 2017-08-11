@@ -1,0 +1,38 @@
+<HTML>
+    <HEAD>
+        <TITLE>Demö-Projäkt</TITLE>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://localhost/demo-projekt/assets/css/standard.css">
+    </HEAD>
+    <BODY>
+
+    <!-- Header -->
+        <header class="container_header">
+          <h1 class="headline">Demo-Projekt</h1>
+          <h3 class="subheadline">Home</h3>
+        </header>
+    <!--Menu-->
+        <TMPL_INCLUDE NAME="menu.tmpl">
+    <!--Content-->
+
+        <table class="table">
+            <thead>
+                <tr class="grey">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Capacity</th>
+                    <th>created</th>
+                    <th>modified</th>
+                </tr>
+            </thead>
+
+        <TMPL_LOOP NAME="data_loop">
+            <tr>
+                <td><TMPL_VAR NAME="id"></td>
+                <td><a href="/demo-projekt/index.pl/storage/edit?id=<TMPL_VAR NAME="id">"><TMPL_VAR NAME="name"></a></td>
+                <td><TMPL_VAR NAME="capacity"> MB</td>
+                <td><TMPL_VAR NAME="created"></td>
+                <td><TMPL_VAR NAME="modified"></td>
+            </tr>
+        </TMPL_LOOP>
+            </table>
