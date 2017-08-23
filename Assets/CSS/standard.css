@@ -105,7 +105,7 @@
 .container_text {
     display: block;
     margin: 0px;
-    width: 900px;
+    width: 1000px;
     align: center;
     float: center;
     vertical-align: middle;
@@ -115,15 +115,15 @@
     border: 1px solid #000000;
     border-collapse: collapse;
     border-spacing: 0;
-    width: 900px;
+    width: 1000px;
     display: table;
     box-sizing: inherit;
     color: #000 !important;
     font-family: Verdana,sans-serif;
     font-size: 15px;
     line-height: 1.5;
-    margin: 24px;
-    box-sizing: 90%;
+    margin: 1px;
+    box-sizing: 100%;
     overflow: hidden;
     table-align: center;
 }
@@ -135,6 +135,7 @@ th {
 td {
     border: 1px solid #000000
     float: center
+    text-align: center;
 }
 
 .container_form {

@@ -31,12 +31,12 @@
         <TMPL_LOOP NAME="data_loop">
             <tr>
                 <td><TMPL_VAR NAME="id"></td>
-                <td><TMPL_VAR NAME="name"></td>
+                <td><a href="/demo-projekt/index.pl/server/edit?id=<TMPL_VAR NAME="id">"><TMPL_VAR NAME="name"></td>
                 <td><TMPL_VAR NAME="op_system"></td>
                 <td><TMPL_VAR NAME="storage"></td>
                 <td><TMPL_VAR NAME="md5"></td>
                 <td><TMPL_VAR NAME="created"></td>
                 <td><TMPL_VAR NAME="modified"></td>
             </tr>
-
-            </table>
+        </TMPL_LOOP>
+        </table>

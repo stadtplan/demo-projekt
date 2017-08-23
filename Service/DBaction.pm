@@ -44,7 +44,7 @@ sub execute {
 sub show_all {
    my ($self) = shift @_;
 
-   my $query = "SELECT * FROM ".$self->{tablename}." ORDER BY id ASC;";
+   my $query = "SELECT * FROM ".$self->{tablename}." ORDER BY name ASC;";
    my $return = $self->execute($query);
 
 #   if ($return==0||$return==1) {

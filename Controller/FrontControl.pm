@@ -28,7 +28,7 @@ sub handle_request {
 
    my $path = $cgi->_name_and_path_from_env;
    my @knots = split '/', $path;
-   if (@knots) { shift @knots;}
+   if (@knots) { shift @knots }
 
    my $method = join ('_', @knots);
 
@@ -37,9 +37,9 @@ sub handle_request {
 
          $self->$method($knots[0]);
 
-      } else {$self->error_site();}
+      } else {$self->error_site() }
 
-   } else {$self->index_site();}
+   } else {$self->index_site() }
 }
 
 sub error_site {
@@ -111,6 +111,7 @@ sub storage_showall {
 
    # print the template
    print $cgi->header(-type => 'text/html', -charset => 'utf-8');
+   #print $cgi-> h3 ("$table");
    print $template->output;
    print $cgi->end_html;
 
@@ -120,14 +121,16 @@ sub server_showall {
    my ($self) = shift @_;
    my ($tablename) = shift @_;
 
+   my $table = (split '::', (split '_', (caller(0))[3])[0])[1];
+
    my $cgi = $self->{cgi};
 
    #retrieving the data from the database
 
    my $dbh = $self->{dbh};
-   my $obj_DBaction = DBaction->new($dbh,$tablename);
+   #my $obj_DBaction = DBaction->new($dbh,$tablename);
+   my $obj_DBaction = DBaction->new($dbh,$table);
    my @ar_rows = $obj_DBaction->show_all();
-
 
    # Fetch each row and push it into @loop. "ar" = ArrayReferenz
    # @loop is an Array of Hashreferences with the fieldnames as keys of the hashes
@@ -157,6 +160,7 @@ sub server_showall {
 
    # print the template
    print $cgi->header(-type => 'text/html', -charset => 'utf-8');
+
    print $template->output;
    print $cgi->end_html;
 
@@ -169,8 +173,6 @@ sub storage_edit {
    my $cgi = $self->{cgi};
    my $dbh = $self->{dbh};
 
-   #my $id = $cgi->url_param('id');
-
    my $obj_DBaction = DBaction->new( $dbh , $tablename );
 
    if ($cgi->request_method eq 'POST') {
@@ -182,17 +184,6 @@ sub storage_edit {
    }
 
    my $obj_record = $obj_DBaction->get_record('id',$cgi->url_param('id'));
-
-
-#   # Compare the sent data with the DB-Data. If it differs, change it.
-#   if ($capacity != $obj_record->get_capacity()) {
-#      $obj_record->set_capacity($capacity);
-#   }
-#
-#   if (($cgi->param('name')) ne ($obj_record->get_name())) {
-#      $obj_record->set_name($cgi->param('name'));
-#   }
-
 
    # Assemble the data for the template
    my %content = (

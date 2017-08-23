@@ -1,0 +1,49 @@
+<HTML>
+    <HEAD>
+        <TITLE>Demö-Projäkt</TITLE>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://localhost/demo-projekt/assets/css/standard.css">
+    </HEAD>
+    <BODY>
+
+    <!-- Header -->
+        <header class="container_header">
+          <h1 class="headline">Demo-Projekt</h1>
+          <h3 class="subheadline">Home</h3>
+        </header>
+    <!--Menu-->
+        <TMPL_INCLUDE NAME="menu.tmpl">
+    <!--Content-->
+
+        <table class="table">
+            <thead>
+                <tr class="grey">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Capacity</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <TMPL_LOOP NAME="data_loop">
+            <tr>
+                    <td><TMPL_VAR NAME="id"></a></td>
+                <form action="http://localhost/demo-projekt/index.pl/storage/edit?id=<TMPL_VAR NAME="id">" method="post">
+                    <input type="hidden" name="id" value=<TMPL_VAR NAME="id">>
+                    <td><input type="text" name="name" size="12" maxlength="12" value=<TMPL_VAR NAME="name">></td>
+                    <td><input type="number" name="capacity" size="9" maxlength="9" value=<TMPL_VAR NAME="capacity">> MB</td>
+                    <td><input type="submit" value="&#x270D EDIT"></td>
+                </form>
+
+                <form action="http://localhost/demo-projekt/index.pl/storage/delete" id="delete" method="post">
+                        <input type="hidden" name="id" value=<TMPL_VAR NAME="id">>
+                    <td>
+                        <button type="submit" name="delete" value="yes">
+                            ❌ DELETE
+                        </button>
+                    </td>
+                </form>
+            </tr>
+            </TMPL_LOOP>
+        </table>
